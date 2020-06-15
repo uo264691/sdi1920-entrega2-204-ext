@@ -1,0 +1,25 @@
+.mensajeUsuario {
+    padding: 5px;
+    padding-right: 10px;
+    border: solid 2px mediumaquamarine;
+    border-radius: 5px;
+    background-color: aquamarine;
+    margin-right: 0;
+
+    float: right;
+    width: 80%;
+    text-align: right;
+}
+
+.mensajeConversador {
+    padding: 5px;
+    padding-left: 10px;
+    border: solid 2px lightgray;
+    border-radius: 5px;
+    background-color: whitesmoke;
+    margin-right: 0;
+
+    float: left;
+    width: 80%;
+    text-align: left;
+}
