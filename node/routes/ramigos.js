@@ -226,7 +226,7 @@ module.exports = function (app, swig, gestorBD) {
         });
     });
 
-
+/*
     app.get('/mensajes', function (req, res) {
         //let criterio = {emisor: req.params.email,destinatario: req.session.usuario};
         let criterio = { $or: [{amigo1 : req.session.usuario},{amigo2 : req.session.usuario}]};
@@ -295,7 +295,7 @@ module.exports = function (app, swig, gestorBD) {
                 }
             }
         });
-    });
+    });*/
 
 }
 
