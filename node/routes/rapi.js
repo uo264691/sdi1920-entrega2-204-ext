@@ -80,21 +80,21 @@ module.exports = function (app, gestorBD) {
 		}
 	});
 
-	app.post("/api/privado/leermensaje", function (req, res) {
-		if(req.body.id == null)
-		{
-			res.status(400);
-			res.json({error: "Parametros incorrectos"});
-		}
+	app.put("/api/privado/leermensaje", function (req, res) {
 
-		var ObjectID = require('mongodb').ObjectID;
-		let criterio = { _id : ObjectID(req.body.id)};
+		let criterio = { emisor : req.body.conversador || req.query.conversador, destino:res.usuario };
 
 		gestorBD.obtenerMensajes(criterio, function (mensajes) {
 			if (mensajes == null) {
 				res.status(500);
 				res.json({error: "Se ha producido un error"})
-			} else {
+			} else if(mensajes.length<=0){
+				res.status(200);
+				res.json(
+					{
+						informacion: "Aun no hay mensajes"
+					});
+			}else {
 				if(res.usuario != mensajes[0].destino)
 				{
 					res.status(400);
@@ -102,7 +102,11 @@ module.exports = function (app, gestorBD) {
 				}
 				else
 				{
+					//console.log(req.body.conversador);
+					//console.log(mensajes);
+
 					gestorBD.leerMensaje(criterio, function (exito) {
+						//console.log(exito);
 						if (!exito) {
 							res.status(500);
 							res.json(
@@ -120,6 +124,20 @@ module.exports = function (app, gestorBD) {
 						}
 					});
 				}
+			}
+		});
+	});
+	app.get("/api/privado/mensajesNuevos", function (req, res) {
+
+		let criterio = { emisor : req.body.conversador || req.query.conversador, destino:res.usuario, leido: false };
+
+		gestorBD.obtenerMensajes(criterio, function (mensajes) {
+			if (mensajes == null) {
+				res.status(500);
+				res.json({error: "Se ha producido un error"})
+			} else {
+				res.status(200);
+				res.json(mensajes.length);
 			}
 		});
 	});

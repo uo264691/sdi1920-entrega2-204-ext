@@ -1,12 +1,13 @@
 <div id="widget-usuarios">
     <input type="text" class="form-control" placeholder="Filtrar por nombre" id="filtroNombre"/>
-    <button class="btn" onclick="cargarUsuarios()">Actualizar</button>
+    <button class="btn" onclick="cargarUsuarios()">Actualizar</button><label>(Es posible que tengas nuevos mensajes)</label>
     <table class="table table-hover">
         <thead>
         <tr>
             <th>Nombre</th>
             <th>Apellidos</th>
             <th>Email</th>
+            <th>Mensajes Nuevos</th>
         </tr>
         </thead>
         <tbody id="tablaCuerpo">
