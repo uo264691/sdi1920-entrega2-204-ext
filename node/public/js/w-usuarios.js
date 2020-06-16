@@ -2,7 +2,9 @@ window.history.pushState("", "", "/cliente.html?w=amigos");
 
 amigos = [];
 nuevosMensajes =0;
-
+/*
+*Filtrado de amigos a mostrar en la tabla
+* */
 $('#filtroNombre').on('input', function (e) {
 	var usuariosFiltrados = [];
 	var nombreFiltro = $("#filtroNombre").val().toLowerCase();
@@ -13,7 +15,9 @@ $('#filtroNombre').on('input', function (e) {
 	}
 	actualizarTabla(usuariosFiltrados);
 });
-
+/*
+* Recoje los usuarios amigos
+* */
 function cargarUsuarios() {
 	$.ajax({
 		url: URLbase + "/privado/amigo",
@@ -26,6 +30,7 @@ function cargarUsuarios() {
 			console.log(amigos);
 			$("#tablaCuerpo").empty(); // Vaciar la tabla
 			actualizarTabla(amigos);
+			console.log("Usuarios actualizados");
 		},
 		error: function (error) {
 			$("#contenedor-principal").load("widget-login.html");
@@ -69,6 +74,10 @@ function cargarUsuarios() {
 			"</tr>");
 	}
 }*/
+
+/*
+* Actualiza la lista de usuarios amigos en la pantalla
+* */
 function actualizarTabla(usuariosMostrar) {
 	$("#tablaCuerpo").empty(); // Vaciar la tabla
 	for (let i = 0; i < usuariosMostrar.length; i++) {

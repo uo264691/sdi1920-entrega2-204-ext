@@ -1,5 +1,7 @@
 window.history.pushState("", "", "/cliente.html?w=mensajes");
-
+/*
+* Recoger los mensajes de la conversación
+* */
 function cargarMensajes() {
 	$("#conversador").text(usuarioSeleccionado);
 	$.ajax({
@@ -12,13 +14,16 @@ function cargarMensajes() {
 		success: function (respuesta) {
 			mensajes = respuesta;
 			actualizarMensajes(respuesta);
+			console.log("Mensajes actualizados");
 		},
 		error: function (error) {
 			$("#contenedor-principal").load("widget-login.html");
 		}
 	});
 }
-
+/*
+* Actualiza los mensajes en la pantalla
+* */
 function actualizarMensajes(mensajesMostrar) {
 	$("#divMensajes").empty(); // Vaciar la tabla
 	marcarLeidos();
@@ -30,7 +35,9 @@ function actualizarMensajes(mensajesMostrar) {
 		}
 	}
 }
-
+/*
+* Enviar mensaje al usuario de la conversacion abierta
+* */
 function enviarMensaje() {
 	let mensaje = $("#areaMensaje").val();
 	$("#areaMensaje").val("");
@@ -43,12 +50,17 @@ function enviarMensaje() {
 		headers: {token: token},
 		success: function (respuesta) {
 			cargarMensajes();
+			console.log("Mensaje enviado");
 		},
 		error: function (error) {
 			$("#contenedor-principal").load("widget-login.html");
 		}
 	});
 }
+
+/*
+* Marcar mensajes como leidos
+* */
 function marcarLeidos() {
 	$.ajax({
 		url: URLbase + "/privado/leermensaje",
@@ -57,7 +69,7 @@ function marcarLeidos() {
 		dataType: 'json',
 		headers: {"token": token},
 		success: function (response) {
-			console.log("Mensaje marcado como leido");
+			console.log("Mensajes marcados como leidos");
 		},
 		error: function (error) {
 			console.log(error);
@@ -67,6 +79,7 @@ function marcarLeidos() {
 }
 
 cargarMensajes();
+/* Actualiza los mensajes cada 3 segundos*/
 setInterval(function () {
 	if(window.location.search==="?w=mensajes"){
 		cargarMensajes(mensajes);
