@@ -2,10 +2,13 @@ module.exports = function (app, swig, gestorBD) {
 	/* POST de registro de un nuevo usuario*/
 	app.post('/usuario', function (req, res) {
 		let seguro = app.get("crypto").createHmac('sha256', app.get('clave')).update(req.body.password).digest('hex');
-		let usuario = {name: req.body.name, lastname: req.body.lastname, email: req.body.email, password: seguro};
-		if (usuario.name == "" || usuario.lastname == "" || usuario.email == "" || req.body.password == "" || req.body.rep_password=="") {
+		let usuario = {name: req.body.name, lastname: req.body.lastname, email: req.body.email, password: seguro, direccion: req.body.direccion, comunidad: req.body.comunidad};
+		if (usuario.name == "" || usuario.lastname == "" || usuario.email == "" || req.body.password == "" || req.body.rep_password=="" ||req.body.direccion=="") {
 			res.redirect("/registrarse" + "?mensaje=Rellene todos los campos" + "&tipoMensaje=alert-danger ");
-		}else{
+		}else if(req.body.direccion.length < 5){
+			res.redirect("/registrarse" + "?mensaje=Longitud de direccion no puede ser inferior a 5" + "&tipoMensaje=alert-danger ");
+		}
+			else{
 		if(req.body.password !=req.body.rep_password){
 				res.redirect("/registrarse" + "?mensaje=Las contraseñas no coinciden" + "&tipoMensaje=alert-danger ");
 		}else{

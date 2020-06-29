@@ -27,22 +27,26 @@
 				<th>Nombre</th>
 				<th>Apellidos</th>
 				<th>Email</th>
+				<th>Direccion</th>
+				<th>Comunidad</th>
 				<th class="col-md-1"></th>
 			</tr>
 		</thead>
 		<tbody>
 		{% for usuario in usuarios %}
-			<tr>
-				<td>{{ usuario.name }}</td>
-				<td>{{ usuario.lastname }}</td>
-				<td>{{ usuario.email }}</td>
-				{% if session_user!=null && session_user!=usuario.email %}
-				<td><a href="/invitacion/{{ usuario.email }}" id="{{usuario.email}}" >Agregar amigo</a></td>
-				{% endif %}
-			<!--	<td><a href="/cancion/modificar/{{ usuario._id.toString() }}">Modificar</a> <br>
-					<a href="/cancion/eliminar/{{ usuario._id.toString() }}">Eliminar</a> <br>
-			    </td>  -->
-			</tr>
+
+
+		 <tr>
+			<td>{{ usuario.name }}</td>
+			<td>{{ usuario.lastname }}</td>
+			<td>{{ usuario.email }}</td>
+			<td>{{ usuario.direccion }}</td>
+			 <td>{{ usuario.comunidad }}</td>
+			{% if session_user!=null && session_user!=usuario.email %}
+			<td><a href="/invitacion/{{ usuario.email }}" id="{{usuario.email}}" >Agregar amigo</a></td>
+			{% endif %}
+		</tr>
+
 		{% endfor %}
 		</tbody>
 	</table>
